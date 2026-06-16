@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: plan-t
+  namespace: argocd
+spec:
+  project: default
+  sources:
+    - repoURL: https://github.com/thibault-poire/plan-t.git
+      targetRevision: main
+      path: k8s
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: plan-t
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
